@@ -25,6 +25,13 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        # Permisos de acceso a edicion de usuarios según rol usuario
+        Gate::define('edit-users', function ($user) {
+
+            #  true si se trate un usuario administrador
+            return $user->isAdmin();
+
+        });
+        # END Permisos de acceso a edicion de usuarios
     }
 }
