@@ -20,3 +20,20 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::middleware(['auth'])->group(function () {
+
+    # Usuario listar
+    Route::get('/users', 'UserController@index')->name('users.index');
+
+    # Usuario editar
+    Route::get('/users/{user}/edit', 'UserController@edit')->name('users.edit');
+
+   # Usuario actualizar
+    Route::patch('/users/{user}', 'UserController@update')->name('users.update');
+
+    # Usuario eliminar
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+
+
+});
