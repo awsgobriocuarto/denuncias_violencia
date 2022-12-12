@@ -14,6 +14,10 @@ class Portal extends Model
         'name', 'slug', 'description','state'
     ];
 
+    public function users() {
+        return $this->belongsToMany(User::Class);
+    }
+
     /**
     * Return the sluggable configuration array for this model.
     *

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\User;
+use App\Portal;
 use App\Role;
 
 class UserController extends Controller
@@ -29,7 +30,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::get();
-        return view('users.edit', compact('user', 'roles'));
+        $portals = Portal::get();
+        return view('users.edit', compact('user', 'roles', 'portals'));
     }
 
     /**

@@ -51,6 +51,19 @@
                         </select>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="portal_id">Portal </label>
+                        <select class="form-control" name="portal_id" required>
+                            <option value="">No asignado</option>
+                            @foreach ($portals as $portal)
+                            <option value="{{ $portal->id }}" @if ($user->portal_id === $portal->id) selected @endif>
+                               {{ $portal->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
                 </br>   
                 <div class="form-row">
                     <div class="form-group col-12">

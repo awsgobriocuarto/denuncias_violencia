@@ -15,7 +15,8 @@ class UsersSeeder extends Seeder
             'name' => 'Gobierno Abierto',
             'email' => 'awsgobriocuarto@gmail.com',
             'password' => bcrypt('vH082Fg0AtS9'),
-            'role_id' => 1
+            'role_id' => 1,
+            'portal_id' => 1,
         ]);
         
         App\User::create([
@@ -23,6 +24,7 @@ class UsersSeeder extends Seeder
             'email' => 'copydot@gmail.com',
             'password' => bcrypt('secret'),
             'role_id' => 2,
+            'portal_id' => 2,
         ]);
     }
 }
