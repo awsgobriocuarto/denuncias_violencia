@@ -33,5 +33,16 @@ class AuthServiceProvider extends ServiceProvider
 
         });
         # END Permisos de acceso a edicion de usuarios
+
+        # Permisos de acceso a creacion de Portales
+        Gate::define('edit-portals', function ($user) {
+
+            if ($user->isAdmin()) {
+                return TRUE;
+            } 
+            return FALSE;
+            
+        });
+        # END Permisos de acceso a creacion de categorias de Portales
     }
 }

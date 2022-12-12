@@ -15,11 +15,13 @@
                         </a>
                     </div>
                     @endif
+                    @if (Gate::Allows('edit-portals'))
                     <div class="col-12 col-md-4 mt-2">
-                        <a href="#" class="btn btn-lg btn-primary pt-5 pb-5 btn-block">
-                        <h5 class="">Otra tarjetita accesible</h5>
+                        <a href="{{ route('portals.index') }}" class="btn btn-lg btn-primary pt-5 pb-5 btn-block">
+                        <h5 class="">Portales</h5>
                         </a>
                     </div>
+                    @endif
                 </div>
             </div>
         </div>
