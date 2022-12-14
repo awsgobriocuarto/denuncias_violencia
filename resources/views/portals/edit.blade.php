@@ -14,7 +14,7 @@
             @include('layouts.partials.errors_and_messages')
             <div class="card">
                 <div class="card-header">
-                    <h3>Detalle de Categoría</h3>
+                    <h3>Detalle del portal</h3>
                 </div>
                 <div class="card-body">
                     <form action="{{ route('portals.update', $portal ) }}" method="POST">

@@ -18,7 +18,6 @@
                     <form 
                         action="{{ route('portals.store') }}" 
                         method="POST"
-                        enctype="multipart/form-data"
                     >   
                         @csrf
                         <div class="form-group">

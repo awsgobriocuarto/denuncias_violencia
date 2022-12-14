@@ -22,6 +22,11 @@
                         </a>
                     </div>
                     @endif
+                    <div class="col-12 col-md-4 mt-2">
+                        <a href="{{ route('complaints.index') }}" class="btn btn-lg btn-primary pt-5 pb-5 btn-block">
+                        <h5 class="">Denuncias</h5>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

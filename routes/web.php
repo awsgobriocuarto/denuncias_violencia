@@ -65,4 +65,36 @@ Route::middleware(['auth'])->group(function () {
     
     /*----------------------------------------------*/
     
+    # Denuncia listar
+    Route::get('complaints/', 'ComplaintController@index')->name('complaints.index')
+    // ->middleware('complaints')
+    ;
+    
+    # Complaint crear
+    Route::get('complaints/create', 'ComplaintController@create')->name('complaints.create')
+    // ->middleware('complaints')
+    ;
+    
+    # Denuncia almacenar
+    Route::post('complaints/store', 'ComplaintController@store')->name('complaints.store')
+    // ->middleware('complaints')
+    ;
+    
+    # Denuncia editar
+    Route::get('complaints/{complaint}/edit', 'ComplaintController@edit')->name('complaints.edit')
+    // ->middleware('complaints')
+    ;
+    
+    # Denuncia actualizar
+    Route::patch('complaints/{complaint}/update', 'ComplaintController@update')->name('complaints.update')
+    // ->middleware('complaints')
+    ;
+    
+    # Denuncia borrar
+    Route::delete('complaints/{complaint}', 'ComplaintController@destroy')->name('complaints.destroy')
+    // ->middleware('complaints')
+    ;
+    
+    /*----------------------------------------------*/
+
 });
