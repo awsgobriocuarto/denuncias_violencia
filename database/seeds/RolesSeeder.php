@@ -12,13 +12,18 @@ class RolesSeeder extends Seeder
     public function run()
     {
         App\Role::create([
-            'name'  => 'Administrador Webmaster',
-            'slug'  => 'administrador_webmaster',
+            'name'  => 'Webmaster',
+            'slug'  => 'webmaster',
         ]);
 
         App\Role::create([
-            'name'  => 'Usuario Editor',
-            'slug'  => 'usuario_editor',
+            'name'  => 'Administrador',
+            'slug'  => 'administrador',
+        ]);
+
+        App\Role::create([
+            'name'  => 'Usuario receptor',
+            'slug'  => 'usuario_receptor',
         ]);
     }
 }

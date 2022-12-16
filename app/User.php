@@ -46,7 +46,11 @@ class User extends Authenticatable
         return $this->belongsTo(Portal::Class);
     }
 
-    public function isAdmin() {
+    public function isWebMaster() {
         return $this->role()->where('id', 1)->exists();
+    }
+
+    public function isAdmin() {
+        return $this->role()->where('id', 2)->exists();
     }
 }

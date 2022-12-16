@@ -12,9 +12,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="float-left pt-1">Gestión de Denuncias</h3>
-                    <!-- @if (Gate::Allows('edit-portals')) -->
                     <a href="{{ route('complaints.create') }}" class="btn btn-md btn-primary float-right">Crear</a>
-                    <!-- @endif -->
                 </div>
                 
                 <div class="card-body">
@@ -23,7 +21,7 @@
                         <thead>
                             <tr>
                                 <th width="10px">ID</th>
-                                <th width="10px">Fecha</th>
+                                <th >Fecha</th>
                                 <th>DNI</th>
                                 <th>Efectuada en (webmaster admin)</th>
                                 <th>Usuario que tomo la denuncia</th>
@@ -34,7 +32,7 @@
                             @forelse($complaints as $complaint)
                             <tr>
                                 <td>{{ $complaint->id }}</td>
-                                <td>{{ $complaint->created_at }}</td>
+                                <td>{{ \Carbon\Carbon::parse($complaint->created_at)->format('d/m/Y, H:i') }}</td>
                                 <td>{{ $complaint->person->dni }}</td>
                                 <td>{{ $complaint->portal->name }}</td>
                                 <td>{{ $complaint->user->name }}</td>

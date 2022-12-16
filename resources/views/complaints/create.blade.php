@@ -19,26 +19,32 @@
                 <div class="card-body">
                     <form action="{{ route('complaints.store') }}" method="POST">
                         @csrf
-                        <div class="form-group">
+                        <div class="form-group col-md-5">
+                            <label for="portal_id">Lugar donde se tomo la denuncia (Portal)</label>
+                            <select class="form-control" name="portal_id" required>
+                                @foreach ($portals as $portal)
+                                <option value="{{$portal->id}}" @if ($portal->state === 1) selected @endif>
+                                    {{$portal->name}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="user_id">Usuario que tomo la denuncia</label>
+                            <input type="text" class="form-control" name="user_id" value="{{ auth()->user()->name }}" readonly>
+                        </div>
+
+                        <div class="form-group col-12">
                             <label for="person_id">Datos Persona</label>
                             <input type="text" class="form-control" name="person_id" value="{{ old('person_id') }}">
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group col-12">
                             <label for="type_of_violence">Tipo de violencia</label>
                             <input type="text" class="form-control" name="type_of_violence" value="{{ old('type_of_violence') }}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="portal_id">Lugar donde se tomo la denuncia</label>
-                            <input type="text" class="form-control" name="portal_id" value="{{ old('portal_id') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_id">Usuario que tomo la denuncia </label>
-                            <input type="text" class="form-control" name="user_id" value="{{ old('user_id') }}">
-                        </div>
-                        
                         <hr/>   
                         <div class="form-group col-12">
                             <div style="text-align:left;">

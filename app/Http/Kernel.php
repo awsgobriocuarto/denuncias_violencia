@@ -65,5 +65,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'users' => \App\Http\Middleware\UsersMiddleware::class,
         'portals' => \App\Http\Middleware\PortalsMiddleware::class,
+        'complaints.portalOwner' => \App\Http\Middleware\PortalOwnerComplaintMiddleware::class,
     ];
 }

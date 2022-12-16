@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Complaint;
-
+use App\Portal;
+use Illuminate\Support\Facades\Auth;
 use Session;
 
 
@@ -14,7 +15,16 @@ class ComplaintController extends Controller
     public function index(Request $request)
     {
         
-        $complaints = Complaint::orderBy('created_at', 'DESC')->orderBy('updated_at', 'ASC')->paginate();
+        $complaints = Complaint::orderBy('created_at', 'DESC')->orderBy('updated_at', 'DESC');
+
+        #Listar portales vinculados al usuario segun rol
+        if ( (!auth()->user()->isWebMaster()) && (!auth()->user()->isAdmin()) ) {
+
+            $complaints = $complaints->where('portal_id', auth()->user()->portal_id );
+
+        } 
+        
+        $complaints = $complaints->paginate();
         
         Session::flash('redirect',$request->getQueryString());
 
@@ -24,7 +34,14 @@ class ComplaintController extends Controller
     public function create()
     {
         Session::keep(['redirect']);
-        return view('complaints.create');
+        
+        if ( (auth()->user()->isWebMaster()) || (auth()->user()->isAdmin()) ) {
+            $portals = Portal::get();
+        } else {
+            $portals = Portal::where('id', auth()->user()->portal_id )->get();
+        }
+        
+        return view('complaints.create', compact('portals'));
     }
     
     
@@ -32,11 +49,13 @@ class ComplaintController extends Controller
     {
         // echo ('<pre>');print_r($request->all());echo ('</pre>'); exit();
 
-        $complaint = Complaint::create( 
-            $request->only([
-                'type_of_violence', 'person_id', 'portal_id','user_id'
-            ])
-        );
+        $array_data = $request->only([
+            'type_of_violence', 'person_id', 'portal_id'
+        ]);
+
+        $array_data['user_id'] = auth()->user()->id;
+
+        $complaint = Complaint::create($array_data);
 
         if($complaint) {
             return redirect()->route('complaints.edit', $complaint )->with('status', 'Denuncia creada de manera exitosa');
@@ -47,26 +66,29 @@ class ComplaintController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Complaint $complaint)
     {        
         Session::keep(['redirect']);
-        $complaint = Complaint::findOrFail($id);
-        return view('complaints.edit', compact('complaint'));
+
+        if ( (auth()->user()->isWebMaster()) || (auth()->user()->isAdmin()) ) {
+            $portals = Portal::get();
+        } else {
+            $portals = Portal::where('id', auth()->user()->portal_id )->get();
+        }
+        return view('complaints.edit', compact('complaint', 'portals'));
     }
     
     
-    public function update(Request $request, $id)
+    public function update(Request $request, Complaint $complaint)
     {
         // echo ('<pre>');print_r($request->all());echo ('</pre>'); exit();
-        
-        $complaint = Complaint::findOrfail($id);
-        
+                
         Session::keep(['redirect']);
 
         // temporal 
         $result = $complaint->update(
             $request->only([
-                'type_of_violence', 'person_id', 'portal_id','user_id'
+                'type_of_violence', 'person_id', 'portal_id'
             ])
         );
 
@@ -79,13 +101,11 @@ class ComplaintController extends Controller
     }
 
 
-    public function destroy($id)
+    public function destroy(Complaint $complaint)
     {
 
         // echo ('<pre>');print_r("TO DO Update");echo ('</pre>'); exit();
-        
-        $complaint = Complaint::findOrFail($id);
-        
+                
         if ($result = $complaint->delete()) {
 
             return redirect()->route('complaints.index')->with('status', 'Denuncia eliminada de manera exitosa');

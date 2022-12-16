@@ -20,26 +20,32 @@
                     <form action="{{ route('complaints.update', $complaint ) }}" method="POST">
                         @csrf
                         @method('PATCH')
-                        <div class="form-group">
+                        <div class="form-group col-md-5">
+                            <label for="portal_id">Lugar donde se tomo la denuncia (Portal)</label>
+                            <select class="form-control" name="portal_id" required>
+                                @foreach ($portals as $portal)
+                                <option value="{{$portal->id}}" @if ($portal->id === $complaint->portal_id) selected @endif>
+                                {{$portal->name}}
+                                </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group col-12">
+                            <label for="user_id">Usuario que tomo la denuncia </label>
+                            <input type="text" class="form-control" name="user_id" value="{{ $complaint->user->name }}" readonly>
+                        </div>
+
+                        <div class="form-group col-12">
                             <label for="person_id">Datos Persona</label>
                             <input type="text" class="form-control" name="person_id" value="{{ $complaint->person->id }}">
                         </div>
                         
-                        <div class="form-group">
+                        <div class="form-group col-12">
                             <label for="type_of_violence">Tipo de violencia</label>
                             <input type="text" class="form-control" name="type_of_violence" value="{{ $complaint->type_of_violence}}">
                         </div>
 
-                        <div class="form-group">
-                            <label for="portal_id">Lugar donde se tomo la denuncia</label>
-                            <input type="text" class="form-control" name="portal_id" value="{{ $complaint->portal->id }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="user_id">Usuario que tomo la denuncia </label>
-                            <input type="text" class="form-control" name="user_id" value="{{ $complaint->user->id }}">
-                        </div>
-                        
                         <hr/>   
                         <div class="form-group col-12">
                             <div style="text-align:left;">

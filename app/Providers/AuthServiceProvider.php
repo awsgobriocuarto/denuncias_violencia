@@ -25,24 +25,21 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        # Permisos de acceso a edicion de usuarios según rol usuario
+        # Permisos de acceso a edicion de usuarios según rol usuario (webMaster)
         Gate::define('edit-users', function ($user) {
 
-            #  true si se trate un usuario administrador
-            return $user->isAdmin();
-
-        });
-        # END Permisos de acceso a edicion de usuarios
-
-        # Permisos de acceso a creacion de Portales
-        Gate::define('edit-portals', function ($user) {
-
-            if ($user->isAdmin()) {
-                return TRUE;
-            } 
-            return FALSE;
+            #  true si se trate un usuario webmaster
+            return $user->isWebMaster();
             
         });
-        # END Permisos de acceso a creacion de categorias de Portales
+        # END Permisos de acceso a edicion de usuarios
+        
+        # Permisos de acceso a creacion de Portales
+        Gate::define('edit-portals', function ($user) {
+            
+            return $user->isWebMaster();
+            
+        });
+        # END Permisos de acceso a creacion de Portales
     }
 }
