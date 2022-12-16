@@ -18,7 +18,9 @@ class UsersMiddleware
     public function handle($request, Closure $next)
     {
         if ( !Gate::Allows('edit-users') ) {
-            return redirect('/home')->withErrors('El usuario no tiene permisos para realizar esta operación');
+
+            abort(403, 'Acción no autorizada');
+            
         }
 
         return $next($request);

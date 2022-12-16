@@ -18,7 +18,7 @@ class PortalsMiddleware
     public function handle($request, Closure $next)
     {
         if ( !Gate::Allows('edit-portals') ) {
-            return redirect('/home')->withErrors('Su usuario no tiene permisos para realizar esta operación');
+            abort(403, 'Acción no autorizada');
         }
         return $next($request);
     }
